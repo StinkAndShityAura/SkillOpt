@@ -370,7 +370,11 @@ export function apply(ctx, config = {}) {
           }
           const spec = typeof shell.resolve === 'function' ? shell.resolve(request) : request
           try {
-            const result = await shell.run(spec)
+            // dsh >=0.2.0-rc seam: ctx.shell is an abstract ShellExecutor —
+            // execute(spec) returns a live handle; await handle.result() for
+            // the foreground outcome (same call shape as dsh-tool-bash).
+            const execution = await shell.execute(spec)
+            const result = await execution.result()
             // Distinguish the executor's timeout (timedOut: true, exitCode null)
             // from an abort/kill (exitCode null, no timedOut) so the marker is
             // honest instead of lumping both under "signal".
