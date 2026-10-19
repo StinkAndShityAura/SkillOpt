@@ -115,8 +115,9 @@ def _add_common(p: argparse.ArgumentParser) -> None:
     p.add_argument("--codex-home", default="", help="override ~/.codex for archived session harvest")
     p.add_argument("--cursor-home", default="", help="override ~/.cursor for Cursor session harvest")
     p.add_argument("--pi-home", default="", help="override ~/.pi for Pi session harvest")
+    p.add_argument("--dsh-home", default="", help="override ~/.dsh for dsh session harvest")
     p.add_argument("--source", default="",
-                   choices=["", "claude", "codex", "copilot", "copilot_cli", "cursor", "pi", "opencode", "auto"],
+                   choices=["", "claude", "codex", "copilot", "copilot_cli", "cursor", "pi", "opencode", "dsh", "auto"],
                    help="session transcript source")
     p.add_argument("--vscode-workspace-storage", default="",
                    help="override VS Code User/workspaceStorage root for copilot source")
@@ -177,6 +178,8 @@ def _cfg_from_args(args, task_meta: Dict[str, Any] | None = None) -> Any:
         overrides["codex_home"] = os.path.abspath(args.codex_home)
     if getattr(args, "pi_home", ""):
         overrides["pi_home"] = os.path.abspath(os.path.expanduser(args.pi_home))
+    if getattr(args, "dsh_home", ""):
+        overrides["dsh_home"] = os.path.abspath(os.path.expanduser(args.dsh_home))
     if getattr(args, "cursor_home", ""):
         overrides["cursor_home"] = os.path.abspath(os.path.expanduser(args.cursor_home))
     if getattr(args, "source", ""):
