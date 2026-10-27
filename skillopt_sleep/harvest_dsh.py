@@ -1,7 +1,9 @@
 """SkillOpt-Sleep — dsh (DeepSeek Harness) session harvesting.
 
-Reads dsh session transcripts (``~/.dsh/sessions/<workspace-slug>/
-session-<uuid>/session.v4.jsonl.zstd``) and normalizes them into
+Reads dsh session transcripts (``~/.dsh/sessions/<workspace-slug>/<uuid>/
+session.v4.jsonl.zstd`` — main sessions use ``session-<uuid>`` directories,
+subagent sessions use bare ``<uuid>`` directories with header ``origin:
+"subagent"``; both layouts are harvested) and normalizes them into
 :class:`SessionDigest` records without copying tool arguments, private
 reasoning blocks, or raw tool outputs.
 
